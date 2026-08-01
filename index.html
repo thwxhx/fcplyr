@@ -475,13 +475,12 @@
           }
       }
 
-      // If domain is NOT authorized, lock player
+      // If domain is NOT authorized, show the custom message
       if (!isAuthorized) {
           document.body.innerHTML = `
               <div style="background: black; color: white; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; font-family: Arial, sans-serif; text-align: center; position: absolute; top: 0; left: 0; z-index: 9999;">
                   <div>
-                      <h2 style="margin-bottom: 15px; font-size: 24px;">Player Locked</h2>
-                      <p style="font-size: 18px;">Visit <a href="https://vivosports.live" target="_blank" style="color: #ff0000; font-weight: bold; text-decoration: none;">vivosports.live</a> for live matches</p>
+                      <p style="font-size: 22px;">Visit <a href="https://vivosports.live" target="_blank" style="color: #ff0000; font-weight: bold; text-decoration: none;">vivosports.live</a> for live matches</p>
                   </div>
               </div>
           `;
