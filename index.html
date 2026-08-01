@@ -1,4 +1,3 @@
-
 <head>
   <meta charset="UTF-8">
     <title>thwhhaaa</title>
@@ -423,7 +422,7 @@
   position: absolute;
   right: 5px;
   top: 10px;
-             }
+              }
 </style>
 
 
@@ -442,6 +441,45 @@
 
 
 <script>
+
+  // --- DOMAIN PROTECTION SCRIPT START ---
+  (function protectPlayer() {
+      const allowedDomain = "ehdbsduvsddhbhbsd.blogspot.com";
+      let isAuthorized = false;
+      
+      try {
+          // Check if being accessed directly or if parent iframe matches allowed domain
+          if (window.self === window.top) {
+              if (window.location.hostname.includes(allowedDomain) || window.location.hostname === "localhost") {
+                  isAuthorized = true;
+              }
+          } else {
+              // Browser CORS policy throws error here if parent domain is different
+              const parentHost = window.top.location.hostname;
+              if (parentHost.includes(allowedDomain) || window.location.hostname === "localhost") {
+                  isAuthorized = true;
+              }
+          }
+      } catch (e) {
+          // CORS error caught -> embedded on an external domain
+          isAuthorized = false;
+      }
+
+      if (!isAuthorized) {
+          // Display the redirect message and override everything
+          document.body.innerHTML = `
+              <div style="background: black; color: white; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; font-family: Arial, sans-serif; text-align: center; position: absolute; top: 0; left: 0; z-index: 9999;">
+                  <div>
+                      <h2 style="margin-bottom: 15px; font-size: 24px;">Player Locked</h2>
+                      <p style="font-size: 18px;">Visit <a href="https://vivosports.live" target="_blank" style="color: #ff0000; font-weight: bold; text-decoration: none;">vivosports.live</a> for live matches</p>
+                  </div>
+              </div>
+          `;
+          throw new Error("Unauthorized domain embed blocked.");
+      }
+  })();
+  // --- DOMAIN PROTECTION SCRIPT END ---
+
 
   const queryParams = new URLSearchParams(window.location.search);
         const url = queryParams.get('url');
