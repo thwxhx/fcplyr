@@ -446,27 +446,37 @@
   (function protectPlayer() {
       const allowedDomain = "ehdbsduvsddhbhbsd.blogspot.com";
       let isAuthorized = false;
-      
-      try {
-          // Check if being accessed directly or if parent iframe matches allowed domain
-          if (window.self === window.top) {
-              if (window.location.hostname.includes(allowedDomain) || window.location.hostname === "localhost") {
+
+      // 1. Direct access on Blogger or local testing
+      if (window.location.hostname.includes(allowedDomain) || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+          isAuthorized = true;
+      } 
+      // 2. Check if embedded inside an iframe on your Blogger page via document.referrer
+      else if (document.referrer && document.referrer.includes(allowedDomain)) {
+          isAuthorized = true;
+      }
+      // 3. Check ancestor origins (for Chrome/Safari/Edge cross-origin security)
+      else if (window.location.ancestorOrigins && window.location.ancestorOrigins.length > 0) {
+          for (let i = 0; i < window.location.ancestorOrigins.length; i++) {
+              if (window.location.ancestorOrigins[i].includes(allowedDomain)) {
                   isAuthorized = true;
-              }
-          } else {
-              // Browser CORS policy throws error here if parent domain is different
-              const parentHost = window.top.location.hostname;
-              if (parentHost.includes(allowedDomain) || window.location.hostname === "localhost") {
-                  isAuthorized = true;
+                  break;
               }
           }
-      } catch (e) {
-          // CORS error caught -> embedded on an external domain
-          isAuthorized = false;
+      }
+      // 4. Fallback attempt for same-origin iframe access
+      else {
+          try {
+              if (window.top.location.hostname.includes(allowedDomain)) {
+                  isAuthorized = true;
+              }
+          } catch (e) {
+              // CORS restriction handled safely
+          }
       }
 
+      // If domain is NOT authorized, lock player
       if (!isAuthorized) {
-          // Display the redirect message and override everything
           document.body.innerHTML = `
               <div style="background: black; color: white; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; font-family: Arial, sans-serif; text-align: center; position: absolute; top: 0; left: 0; z-index: 9999;">
                   <div>
