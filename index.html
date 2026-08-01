@@ -475,8 +475,15 @@
           }
       }
 
-      // If domain is NOT authorized, show the custom message
+      // If domain is NOT authorized, show confirm popup and lock screen
       if (!isAuthorized) {
+          
+          // Show the confirm box, open link if they click "OK"
+          if (confirm("Join For LIVE LINK @VIVOSPORTS") == true) {
+              window.open("https://www.vivosports.live/p/wp.html", '_blank');
+          }
+          
+          // Replace the player screen so they cannot watch the video
           document.body.innerHTML = `
               <div style="background: black; color: white; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; font-family: Arial, sans-serif; text-align: center; position: absolute; top: 0; left: 0; z-index: 9999;">
                   <div>
