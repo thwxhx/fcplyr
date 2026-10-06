@@ -22,18 +22,34 @@
             margin: 0;
             padding: 0;
         }
+        /* Custom animation for a noticeable blinking effect */
+        @keyframes blink-effect {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .animate-blink {
+            animation: blink-effect 1.2s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="relative w-full h-full">
 
-    <!-- You can add your own URL in the src="" attribute below -->
+    <!-- Blinking Join Us Button -->
+    <a href="https://www.vivosports.live/p/wp.html" target="_blank" class="absolute top-4 left-4 z-50 bg-red-600 hover:bg-red-700 border border-red-400 text-white px-4 py-2.5 rounded-lg shadow-[0_0_15px_rgba(220,38,38,0.8)] backdrop-blur-md transition-all flex items-center justify-center font-bold animate-blink tracking-wider uppercase text-sm cursor-pointer hover:animate-none">
+        Join Us
+    </a>
+
+    <!-- Iframe with Sandbox added -->
+    <!-- The sandbox prevents popup ads and page redirects -->
     <iframe 
         id="contentFrame" 
-        src="https://thwxhx.github.io/vivonew/?Xy9ert8=https://nations-league.freedekholive-577.workers.dev/stream-4" 
+        src="https://nations-league.freedekholive-577.workers.dev/stream-4" 
         allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
+        sandbox="allow-scripts allow-same-origin allow-presentation"
         allowfullscreen>
     </iframe>
 
+    <!-- Fullscreen Button -->
     <button id="fullscreenBtn" class="absolute top-4 right-4 z-50 bg-black/60 hover:bg-black/90 border border-white/20 text-white px-4 py-2.5 rounded-lg shadow-lg backdrop-blur-md transition-all flex items-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50 group" aria-label="Toggle Fullscreen">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="transition-transform group-hover:scale-110" viewBox="0 0 16 16">
           <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"/>
